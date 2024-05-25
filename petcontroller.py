@@ -1,18 +1,6 @@
 import time
-#import mysql.connector
 import random
 import re
-import os
-
-import _TTS
-
-# mydb = mysql.connector.connect(
-#     host="localhost",
-#     user="petbyte",
-#     password="petbyte"
-# )
-#
-# mycursor = mydb.cursor()
 
 joke_list = [
     "What is the method a hacker vampire uses to kill its victims?\nA kill-o-byte.",
@@ -74,8 +62,6 @@ face = faces["sleep"]
 text = ".:Sleeping:."
 stats = ""
 
-# mycursor.execute("SELECT * FROM state")
-# data = mycursor.fetchall()  # database->select("state", "*")
 barcode_list = {}
 barcode = {"data": "", "new": False, "time": 0}
 state = {
@@ -83,9 +69,6 @@ state = {
     "lastbarcode": {"data": "", "new": False, "time": 0},
     "mind": {"data": 0}
 }
-
-# for row in data:
-#     state[row["name"]] = row
 
 state["people"]["time"] = round(time.time())
 save = {
@@ -100,9 +83,6 @@ save = {
     "coin": 0,
     "joke": ""
 }
-
-
-# save = state["mind"]["data"]
 
 
 # // // // // // // // // // // // // // / MINDSTATES // // // // // // // // // // // // // // // // // // //
@@ -156,20 +136,6 @@ def idle_faces():
         text = "zzzzzzzzzzzzzzzzzzzzz"
 
     # // // / NUMBER DECAYS
-    # save['hunger'] = save['hunger'] - 0.00001
-    #
-    # if save['hunger'] > 6:
-    #     save['mood'] = save['mood'] + 0.001
-    # else:
-    #     save['mood'] = save['mood'] - 0.00001
-    #
-    # if save['social'] > 6:
-    #     save['mood'] = save['mood'] + 0.001
-    # else:
-    #     save['mood'] = save['mood'] - 0.00001
-    #
-    # save['social'] = save['social'] - 0.0001
-
     save['hunger'] = save['hunger'] - 0.001
 
     if save['hunger'] > 6:
@@ -201,7 +167,7 @@ def idle_faces():
         barcodelen = len(barcode["data"])
         if barcode["new"]:
             if save["coin"] == 0:
-                save["coin"] = 99#random.randrange(0, 100)
+                save["coin"] = 99  # random.randrange(0, 100)
 
             if save["coin"] > 50:
                 face = faces["smart"]
@@ -249,8 +215,6 @@ def fix_numbers():
     if save['social'] < 1.0:
         save['social'] = 1.0
 
-
-# if state["lastbarcode"]["time"] > time.time() - 60:
 
 # // // // // // // // // // // // // // // // // / CTF TIME! // // // // // // // // // // // // //
 def new_barcode(data):
@@ -396,38 +360,4 @@ def new_barcode(data):
         save['mood'] = 1.0
         save['hunger'] = 8.0
 
-
-# TODO: Fix SQL
-
-# sql_state_data = "UPDATE state SET data = %s"
-# sql_state_name = "UPDATE state SET name = %s"
-# mycursor.execute(sql_state_data, data)
-# mycursor.execute(sql_state_name, "mind")
-# data = #database->update("state", ["data" = > json_encode(save),"time" = > time.time()], ["name" = > "mind"])
-
-def print_new_face():
-    if save["lasttext"] == str(text) and save["lastface"] == str(face):
-        return
-    if save["lasttext"] == str(text):
-        print(face)
-        return
-
-    os.system('cls')
-
-    print(face)
-    print(text)
-#     print("Hunger:", round(save['hunger']))
-#     print("Mood:", round(save['mood']))
-#     print("Social:", round(save['social']))
-#     print("""== == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
-#
-#     Show any code to help with hunger, longer codes are better.
-#     You can try hacking me during lab hours at the HackerLab!
-#     Social is how many people I think I've seen today and gave me a barcode.
-#     Show unseen codes to make me happy and social!
-#
-# == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==""")
-#     tts = _TTS._TTS()
-#     tts.start(text)
-#     del(tts)
-
+# TODO: Add remote SQL database option
